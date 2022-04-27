@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 
 router.use((req,res,next) => {
+    console.log(`Request IP : ${req.ip}`)
+    console.log(`Request Method: ${req.method}`)
     console.log('Time', Date.now())
     next()
 })
