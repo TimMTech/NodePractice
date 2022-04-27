@@ -1,44 +1,11 @@
+const express = require ('express')
+const router = require('./router')
 
-
-const http = require("http");
-const fs = require("fs");
-
-
-
+const app = express()
 const PORT = process.env.PORT || "3000";
 
 
-const server = http.createServer((req, res) => {
-  res.setHeader("Content-Type", "text/html");
+app.use('/', router)
 
-  let path = "./"
-  switch (req.url) {
-    case "/":
-      path += 'index.html';
-      res.statusCode = 200;
-      break;
-    case '/about':
-      path += "about.html";
-      res.statusCode = 200;
-      break;
-    case '/contact':
-      path += 'contact.html';
-      res.statusCode = 200;
-      break;
-    default:
-      path += '404.html';
-      res.statusCode = 404;
-      break;
-  }
 
-  fs.readFile(path, (err, data) => {
-    if (err) {
-      console.error(err);
-      res.end();
-    } else {
-      res.end(data);
-    }
-  });
-});
-
-server.listen(PORT, () => console.log(`Server Listening To ${PORT}`));
+app.listen(PORT, () => console.log(`Server Listening To ${PORT}`));
